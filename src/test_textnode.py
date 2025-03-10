@@ -1,6 +1,7 @@
 import unittest
 
 from textnode import TextNode, TextType, text_node_to_html_node
+from splitdelimiter import split_nodes_delimiter
 
 
 class TestTextNode(unittest.TestCase):
@@ -32,6 +33,35 @@ class TestTextNodeToHTMLNode(unittest.TestCase):
         self.assertEqual(html_node.tag, "img")
         self.assertEqual(html_node.value, "")
         self.assertEqual(html_node.props, {"src": "image url", "alt": "alt text"})
+
+class TextSplitDelimiter(unittest.TestCase):
+    def test_new_node(self):
+        node = TextNode("This is text with a `code block` word", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
+        nodes = [
+            TextNode("This is text with a ", TextType.TEXT),
+            TextNode("code block", TextType.CODE),
+            TextNode(" word", TextType.TEXT),
+        ]
+        self.assertEqual(new_nodes, nodes)
+
+    def test_new_nodes(self):
+        node = [
+            TextNode("This is text with a code block word", TextType.TEXT),
+            TextNode("This is text with a `code block` word", TextType.TEXT),
+            TextNode("This is text with a `code block` word", TextType.TEXT)
+        ]
+        new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
+        nodes = [
+            TextNode("This is text with a code block word", TextType.TEXT),
+            TextNode("This is text with a ", TextType.TEXT),
+            TextNode("code block", TextType.CODE),
+            TextNode(" word", TextType.TEXT),
+            TextNode("This is text with a ", TextType.TEXT),
+            TextNode("code block", TextType.CODE),
+            TextNode(" word", TextType.TEXT)
+        ]
+        self.assertEqual(new_nodes, nodes)
 
 if __name__ == "__main__":
     unittest.main()
