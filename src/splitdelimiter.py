@@ -12,7 +12,8 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             if old_node.text.count(delimiter) % 2 != 0:
                 raise Exception("That's invalid Markdown syntax")
             
-            split_node = re.split(f"({delimiter})", old_node.text)
+            esc_delimiter = re.escape(delimiter)
+            split_node = re.split(f"({esc_delimiter})", old_node.text)
 
             inside_text = False
 
@@ -21,9 +22,5 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
                     inside_text = not inside_text
                 else:
                     new_nodes.append(TextNode(text, text_type if inside_text else TextType.TEXT))
-
-    # categorized.append((segment, "code" if inside_code else "text"))
-    
-    # "This is text with a `code block` word"
 
     return new_nodes
