@@ -1,6 +1,8 @@
 import re
 
 from block import BlockType
+from htmlnode import HTMLNode
+from textnode import TextNode, text_node_to_html_node
 
 def markdown_to_blocks(markdown):
     blocks = []
@@ -43,5 +45,27 @@ def block_to_block_type(block):
     if ol_check == True:
         return BlockType.OLIST
     
-
     return BlockType.PARAGRAPH
+
+# def markdown_to_html_node(markdown):
+#     blocks = markdown_to_blocks(markdown)
+#     for block in blocks:
+#         block_type = block_to_block_type(block)
+#         match block_type:
+#             case BlockType.PARAGRAPH:
+#                 block_node = HTMLNode("<p>", block)
+#                 text_to_children(block)
+#             case BlockType.HEADING:
+#                 block_node = HTMLNode("")
+#             case BlockType.CODE:
+#                 node = TextNode("")
+#                 node = text_node_to_html_node(block)
+#             case 
+
+
+#     return html_node
+
+# def text_to_children(text):
+
+
+#     return html_nodes

@@ -2,15 +2,15 @@ from enum import Enum
 
 class HTMLNode:
     def __init__(self, tag = None, value = None, children = None, props = None):
-        self.tag = tag
-        self.value = value
-        self.children = children
-        self.props = props
+        self.tag = tag # "p", "a", "h1"...
+        self.value = value # text content
+        self.children = children # list of HTMLNode objs
+        self.props = props # dict of key, value for attributes of HTML tag ({"href":"https://www.google.com"})
 
     def to_html(self):
         raise NotImplementedError
     
-    def props_to_html(self):
+    def props_to_html(self): # return props as html string
         props_html = ""
 
         if not self.props:
@@ -28,7 +28,7 @@ class LeafNode(HTMLNode):
         super().__init__(tag, value, None, props)
 
     
-    def to_html(self):
+    def to_html(self): # render as HTML
         if not self.value:
             raise ValueError("invalid HTML: no value")
         if not self.tag:
@@ -43,11 +43,11 @@ class ParentNode(HTMLNode):
         super().__init__(tag, None, children, props)
 
     
-    def to_html(self):
+    def to_html(self): # render self and children as HTML
         if not self.tag:
             raise ValueError("invalid HTML: no tag")
         if not self.children:
-            return ValueError("invalid HTML: no child value")
+            return ValueError("invalid HTML: no children")
         
         children_value = ""
 
