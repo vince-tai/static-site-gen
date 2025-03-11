@@ -86,7 +86,7 @@ def split_nodes_link(old_nodes):
                     # TextNode("image", TextType.IMAGE, "https://i.imgur.com/zjjcJKZ.png")
 
                     if i == len(ex_link) - 1 and sections[1] != "":  # Last iteration
-                        new_nodes.append(TextNode(sections[1], TextType.Text))
+                        new_nodes.append(TextNode(sections[1], TextType.TEXT))
                     else:
                         sections = sections[1]
                     # and another ![second image](https://i.imgur.com/3elNhQu.png) plus maybe more
