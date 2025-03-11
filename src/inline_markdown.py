@@ -44,14 +44,14 @@ def split_nodes_image(old_nodes):
             if ex_img == []:
                 new_nodes.append(old_node)
             else:
-                for i, (img_alt, img_link) in enumerate(ex_img):
+                for i, (img_alt, img_url) in enumerate(ex_img):
                     if i == 0:
-                        sections = old_node.text.split(f"![{img_alt}]({img_link})", 1)
+                        sections = old_node.text.split(f"![{img_alt}]({img_url})", 1)
                     else:
-                        sections = sections.split(f"![{img_alt}]({img_link})", 1)
+                        sections = sections.split(f"![{img_alt}]({img_url})", 1)
 
                     new_nodes.append(TextNode(sections[0], TextType.TEXT)) # TextNode("This is text with an ", TextType.TEXT)
-                    new_nodes.append(TextNode(f"{img_alt}", TextType.IMAGE, f"{img_link}"))
+                    new_nodes.append(TextNode(f"{img_alt}", TextType.IMAGE, f"{img_url}"))
                     # TextNode("image", TextType.IMAGE, "https://i.imgur.com/zjjcJKZ.png")
 
                     if i == len(ex_img) - 1 and sections[1] != "":  # Last iteration
@@ -75,14 +75,14 @@ def split_nodes_link(old_nodes):
             if ex_link == []:
                 new_nodes.append(old_node)
             else:
-                for i, (link_alt, link_link) in enumerate(ex_link):
+                for i, (link_anchor, link_url) in enumerate(ex_link):
                     if i == 0:
-                        sections = old_node.text.split(f"[{link_alt}]({link_link})", 1)
+                        sections = old_node.text.split(f"[{link_anchor}]({link_url})", 1)
                     else:
-                        sections = sections.split(f"[{link_alt}]({link_link})", 1)
+                        sections = sections.split(f"[{link_anchor}]({link_url})", 1)
 
                     new_nodes.append(TextNode(sections[0], TextType.TEXT)) # TextNode("This is text with an ", TextType.TEXT)
-                    new_nodes.append(TextNode(f"{link_alt}", TextType.LINK, f"{link_link}"))
+                    new_nodes.append(TextNode(f"{link_anchor}", TextType.LINK, f"{link_url}"))
                     # TextNode("image", TextType.IMAGE, "https://i.imgur.com/zjjcJKZ.png")
 
                     if i == len(ex_link) - 1 and sections[1] != "":  # Last iteration
