@@ -2,7 +2,7 @@ import shutil
 import os
 
 from copystatic import copy
-from generatepage import generate_page
+from generatepage import generate_pages_recursive
 
 def main():
     # Dynamically find the project root
@@ -16,10 +16,9 @@ def main():
     shutil.rmtree(public_path)
     copy(static_path, public_path)
 
-    from_path = os.path.join(project_root, "content/index.md")
-    dest_path = os.path.join(project_root, "public/index.html")
+    from_path = os.path.join(project_root, "content")
     template_path = os.path.join(project_root, "template.html")
 
-    generate_page(from_path, template_path, dest_path)
+    generate_pages_recursive(from_path, template_path, public_path)
 
 main()
