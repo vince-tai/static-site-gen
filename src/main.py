@@ -6,7 +6,9 @@ from copystatic import copy
 from generatepage import generate_pages_recursive
 
 def main():
-    base_path = sys.argv[1]
+    base_path = "/"
+    if len(sys.argv) > 1:
+        base_path = sys.argv[1]
 
     # Dynamically find the project root
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -15,8 +17,9 @@ def main():
     # # Define absolute paths dynamically
     static_path = os.path.join(project_root, "static")
     docs_path = os.path.join(project_root, "docs")
-
-    shutil.rmtree(docs_path)
+    
+    if os.path.exists(docs_path):
+        shutil.rmtree(docs_path)
 
     copy(static_path, docs_path)
 
