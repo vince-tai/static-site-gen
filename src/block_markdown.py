@@ -1,7 +1,7 @@
 import re
 
 from block import BlockType
-from htmlnode import ParentNode, LeafNode
+from htmlnode import ParentNode
 from textnode import TextNode, text_node_to_html_node, TextType
 from inline_markdown import text_to_textnodes
 
@@ -14,7 +14,6 @@ def markdown_to_blocks(markdown):
         strip_block = block.strip()
         if block != "":
             blocks.append(strip_block)
-
     return blocks # return list of blocks
 
 def block_to_block_type(block): # return the type of the block

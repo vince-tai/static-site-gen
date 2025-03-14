@@ -49,8 +49,9 @@ def split_nodes_image(old_nodes):
                         sections = old_node.text.split(f"![{img_alt}]({img_url})", 1)
                     else:
                         sections = sections.split(f"![{img_alt}]({img_url})", 1)
-
-                    new_nodes.append(TextNode(sections[0], TextType.TEXT)) # TextNode("This is text with an ", TextType.TEXT)
+                    if sections[0] != "":
+                        new_nodes.append(TextNode(sections[0], TextType.TEXT))
+                    # new_nodes.append(TextNode(sections[0], TextType.TEXT)) # TextNode("This is text with an ", TextType.TEXT)
                     new_nodes.append(TextNode(f"{img_alt}", TextType.IMAGE, f"{img_url}"))
                     # TextNode("image", TextType.IMAGE, "https://i.imgur.com/zjjcJKZ.png")
 
@@ -58,8 +59,7 @@ def split_nodes_image(old_nodes):
                         new_nodes.append(TextNode(sections[1], TextType.TEXT))
                     else:
                         sections = sections[1]
-                    # and another ![second image](https://i.imgur.com/3elNhQu.png) plus maybe more
-
+                    # and another ![second image](https://i.imgur.com/3elNhQu.png) plus maybe more      
     return new_nodes
 
 def split_nodes_link(old_nodes):
