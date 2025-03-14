@@ -19,6 +19,7 @@ def main():
     docs_path = os.path.join(project_root, "docs")
     
     if os.path.exists(docs_path):
+        print("Removing stuff...")
         shutil.rmtree(docs_path)
 
     copy(static_path, docs_path)

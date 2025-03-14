@@ -25,7 +25,7 @@ def generate_page(from_path, template_path, dest_path, base_path):
     html = node.to_html()
 
     page = temp_read.replace("{{ Title }}", title).replace("{{ Content }}", html)
-    page_update_link = page.replace('href="/', f'href="{base_path}').replace('src="/', f'src="{base_path}')
+    page_update_link = page.replace('href="/', 'href="' + base_path).replace('src="/', 'src="' + base_path)
 
     os.makedirs(os.path.dirname(dest_path), exist_ok = True)
 
